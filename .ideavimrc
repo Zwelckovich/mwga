@@ -1,0 +1,6 @@
+Plug 'tpope/vim-commentary'
+Plug 'machakann/vim-highlightedyank'
+-- imap jk <Esc>
+set timeoutlen=1000
+set relativenumber number
+map s <Action>(flash.search)
