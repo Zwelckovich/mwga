@@ -46,3 +46,8 @@ function python_activate() {
 Set-Alias pyvenv python_venv
 Set-Alias pyvenv python_venv
 Set-Alias lg lazygit
+# Alias für eine Ebene höher
+Set-Alias -Name .. -Value "Set-Location .."
+
+# Alias für zwei Ebenen höher
+Set-Alias -Name ... -Value "Set-Location ..\.."
