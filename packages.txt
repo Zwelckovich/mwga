@@ -4,9 +4,10 @@ winget install Microsoft.PowerToys
 winget install JesseDuffield.lazygit
 winget install GitHub.cli
 winget install BurntSushi.ripgrep.MSVC
+winget install -e --id OpenJS.NodeJS
 oh-my-posh font install JetBrainsMono
 Install-Module -Name Terminal-Icons -Repository PSGallery
 Install-Module PSReadLine -RequiredVersion 2.1.0
 PowerShellGet\Install-Module posh-git -Scope CurrentUser -Force
 Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1" -OutFile "./install-pyenv-win.ps1"; &"./install-pyenv-win.ps1"
-
+npm install -g tldr

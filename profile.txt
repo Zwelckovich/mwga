@@ -1,6 +1,5 @@
 Import-Module posh-git
 Import-Module -Name Terminal-Icons
-oh-my-posh --init --shell pwsh --config C:\mwga\my_ohmyposhtheme.json | Invoke-Expression
 Set-PSReadLineOption -PredictionSource History
 Set-PSReadlineKeyHandler -Key "Tab" -Function MenuComplete
 Set-PSReadlineKeyHandler -Key "UpArrow" -Function HistorySearchBackward
@@ -44,7 +43,7 @@ function python_activate() {
 	which python
 }
 Set-Alias pyvenv python_venv
-Set-Alias pyvenv python_venv
+Set-Alias pyact python_activate
 Set-Alias lg lazygit
 # Alias für ".." um eine Ebene zurück zu gehen
 function GoUpOneLevel { Set-Location .. }
