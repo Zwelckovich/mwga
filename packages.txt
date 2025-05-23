@@ -5,9 +5,17 @@ winget install JesseDuffield.lazygit
 winget install GitHub.cli
 winget install BurntSushi.ripgrep.MSVC
 winget install -e --id OpenJS.NodeJS
+winget install sharkdp.bat
+winget install fzf
+winget install -e --id Rustlang.Rustup
+winget install Posit.Quarto
+rustup component add rust-src
+rustup component add rust-analyser
+rustup update
 oh-my-posh font install JetBrainsMono
 Install-Module -Name Terminal-Icons -Repository PSGallery
 Install-Module PSReadLine -RequiredVersion 2.1.0
+Install-Module -Name PSFzf -RequiredVersion 2.6.7
 PowerShellGet\Install-Module posh-git -Scope CurrentUser -Force
-Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1" -OutFile "./install-pyenv-win.ps1"; &"./install-pyenv-win.ps1"
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 npm install -g tldr
