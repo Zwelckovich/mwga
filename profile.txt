@@ -72,6 +72,8 @@ function Invoke-CodeUp {
     bun upgrade
     if ($LASTEXITCODE -ne 0) { return }
     npm install -g corepack
+    if ($LASTEXITCODE -ne 0) { return }
+    winget upgrade lazygit
 }
 Set-Alias -Name codeup -Value Invoke-CodeUp
 
