@@ -12,6 +12,8 @@ winget install -e --id Rustlang.Rustup
 winget install Posit.Quarto
 winget install GnuWin32.Make (add path to env PATH variable)
 winget install sxyazi.yazi
+winget install  Terrastruct.D2
+
 rustup component add rust-src
 rustup component add rust-analyser
 rustup update
@@ -21,5 +23,7 @@ Install-Module PSReadLine -RequiredVersion 2.1.0
 Install-Module -Name PSFzf -RequiredVersion 2.6.7
 PowerShellGet\Install-Module posh-git -Scope CurrentUser -Force
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+powershell -ExecutionPolicy ByPass -c "irm bun.sh/install.ps1 | iex"
 npm install -g tldr
 npm install -g prettier
+

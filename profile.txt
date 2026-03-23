@@ -1,11 +1,13 @@
 Import-Module posh-git
 # oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\quick-term.omp.json" | Invoke-Expression
 Import-Module -Name Terminal-Icons
-Set-PSReadLineOption -PredictionSource History
+if ($Host.UI.SupportsVirtualTerminal -and -not [Console]::IsOutputRedirected) {
+    Set-PSReadLineOption -PredictionSource History
+    Set-PSReadLineOption -Colors @{ InlinePrediction = '#898c5b'}
+}
 Set-PSReadlineKeyHandler -Key "Tab" -Function MenuComplete
 Set-PSReadlineKeyHandler -Key "UpArrow" -Function HistorySearchBackward
 Set-PSReadlineKeyHandler -Key "DownArrow" -Function HistorySearchForward
-Set-PSReadLineOption -Colors @{ InlinePrediction = '#898c5b'}
 Set-PSReadlineOption -HistorySearchCursorMovesToEnd
 Set-PSReadLineKeyHandler -Key "RightArrow" -ScriptBlock {
        param($key, $arg)
@@ -52,6 +54,26 @@ Set-Alias -Name '..' -Value 'GoUpOneLevel'
 # Alias für "..." um zwei Ebenen zurück zu gehen
 function GoUpTwoLevels { Set-Location ..\.. }
 Set-Alias -Name '...' -Value 'GoUpTwoLevels'
+
+function Invoke-PyCheck {
+    uv run ruff check --fix
+    if ($LASTEXITCODE -ne 0) { return }
+    uv run ruff format
+    if ($LASTEXITCODE -ne 0) { return }
+    uv run ty check
+}
+Set-Alias -Name pycheck -Value Invoke-PyCheck
+
+# Like Linux `codeup` but without VS Code extension updates or Claude.
+# (yamir/yain are Arch-specific; add winget/scoop steps here if you use them.)
+function Invoke-CodeUp {
+    uv self update
+    if ($LASTEXITCODE -ne 0) { return }
+    bun upgrade
+    if ($LASTEXITCODE -ne 0) { return }
+    npm install -g corepack
+}
+Set-Alias -Name codeup -Value Invoke-CodeUp
 
 # Add to your profile
 function Remove-ItemForced {
