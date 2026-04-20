@@ -4,15 +4,15 @@ winget install Fork.Fork
 winget install Microsoft.PowerToys
 winget install JesseDuffield.lazygit
 winget install GitHub.cli
-winget install BurntSushi.ripgrep.MSVC
 winget install -e --id OpenJS.NodeJS
 winget install sharkdp.bat
-winget install fzf
 winget install -e --id Rustlang.Rustup
 winget install Posit.Quarto
 winget install GnuWin32.Make (add path to env PATH variable)
 winget install sxyazi.yazi
+winget install Gyan.FFmpeg 7zip.7zip jqlang.jq oschwartz10612.Poppler sharkdp.fd BurntSushi.ripgrep.MSVC junegunn.fzf ajeetdsouza.zoxide ImageMagick.ImageMagick
 winget install  Terrastruct.D2
+winget install aristocratos.btop4win
 
 rustup component add rust-src
 rustup component add rust-analyser
@@ -26,4 +26,9 @@ powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | ie
 powershell -ExecutionPolicy ByPass -c "irm bun.sh/install.ps1 | iex"
 npm install -g tldr
 npm install -g prettier
+cargo install --locked zellij
+
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+scoop install resvg 
 
