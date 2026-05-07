@@ -1,169 +1,215 @@
 {
-    "$help": "https://aka.ms/terminal-documentation",
-    "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": 
-    [
-        {
-            "command": "find",
-            "id": "User.find"
-        },
-        {
-            "command": 
-            {
-                "action": "splitPane",
-                "split": "auto",
-                "splitMode": "duplicate"
-            },
-            "id": "User.splitPane.A6751878"
-        },
-        {
-            "command": "paste",
-            "id": "User.paste"
-        },
-        {
-            "command": 
-            {
-                "action": "copy",
-                "singleLine": false
-            },
-            "id": "User.copy.644BA8F2"
-        }
-    ],
-    "copyFormatting": "none",
-    "copyOnSelect": false,
-    "defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-    "keybindings": 
-    [
-        {
-            "id": "User.splitPane.A6751878",
-            "keys": "alt+shift+d"
-        },
-        {
-            "id": "User.paste",
-            "keys": "ctrl+v"
-        },
-        {
-            "id": "User.find",
-            "keys": "ctrl+shift+f"
-        },
-        {
-            "id": "User.copy.644BA8F2",
-            "keys": "ctrl+c"
-        }
-    ],
-    "newTabMenu": 
-    [
-        {
-            "type": "remainingProfiles"
-        }
-    ],
-    "profiles": 
-    {
-        "defaults": 
-        {
-            "colorScheme": "Catppuccin Mocha"
-        },
-        "list": 
-        [
-            {
-                "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
-                "font": 
-                {
-                    "face": "JetBrainsMono Nerd Font"
-                },
-                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-                "hidden": false,
-                "name": "Windows PowerShell"
-            },
-            {
-                "commandline": "%SystemRoot%\\System32\\cmd.exe",
-                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-                "hidden": false,
-                "name": "Eingabeaufforderung"
-            },
-            {
-                "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
-                "hidden": false,
-                "name": "Azure Cloud Shell",
-                "source": "Windows.Terminal.Azure"
-            },
-            {
-                "guid": "{a9f26b4a-a5af-559e-a8b1-c2b20cf25232}",
-                "hidden": false,
-                "name": "Developer Command Prompt for VS 2022",
-                "source": "Windows.Terminal.VisualStudio"
-            },
-            {
-                "guid": "{53388cf1-4780-5c79-a2b5-a8cdc85a14da}",
-                "hidden": false,
-                "name": "Developer PowerShell for VS 2022",
-                "source": "Windows.Terminal.VisualStudio"
-            },
-            {
-                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-                "hidden": false,
-                "name": "PowerShell",
-                "source": "Windows.Terminal.PowershellCore"
-            },
-            {
-                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
-                "hidden": true,
-                "name": "Ubuntu",
-                "source": "Windows.Terminal.Wsl"
-            }
-        ]
-    },
-    "schemes": 
-    [
-        {
-            "background": "#1E1E2E",
-            "black": "#45475A",
-            "blue": "#89B4FA",
-            "brightBlack": "#585B70",
-            "brightBlue": "#89B4FA",
-            "brightCyan": "#94E2D5",
-            "brightGreen": "#A6E3A1",
-            "brightPurple": "#F5C2E7",
-            "brightRed": "#F38BA8",
-            "brightWhite": "#A6ADC8",
-            "brightYellow": "#F9E2AF",
-            "cursorColor": "#F5E0DC",
-            "cyan": "#94E2D5",
-            "foreground": "#CDD6F4",
-            "green": "#A6E3A1",
-            "name": "Catppuccin Mocha",
-            "purple": "#F5C2E7",
-            "red": "#F38BA8",
-            "selectionBackground": "#585B70",
-            "white": "#BAC2DE",
-            "yellow": "#F9E2AF"
-        }
-    ],
-    "theme": "Catppuccin Mocha",
-    "themes": 
-    [
-        {
-            "name": "Catppuccin Mocha",
-            "tab": 
-            {
-                "background": "#1E1E2EFF",
-                "iconStyle": "default",
-                "showCloseButton": "always",
-                "unfocusedBackground": null
-            },
-            "tabRow": 
-            {
-                "background": "#181825FF",
-                "unfocusedBackground": "#11111BFF"
-            },
-            "window": 
-            {
-                "applicationTheme": "dark",
-                "experimental.rainbowFrame": false,
-                "frame": null,
-                "unfocusedFrame": null,
-                "useMica": false
-            }
-        }
-    ]
+	// ═══════════════════════════════════════════════════════════════════════════
+	// THEME & VISUAL
+	// ═══════════════════════════════════════════════════════════════════════════
+	"workbench.colorTheme": "Catppuccin Mocha",
+	"workbench.iconTheme": "catppuccin-mocha",
+	"window.titleBarStyle": "custom",
+	"editor.fontFamily": "'JetBrainsMono Nerd Font', 'JetBrainsMono Nerd Font', JetBrainsMono Nerd Font ,'JetBrainsMono Nerd Font'",
+	"editor.fontSize": 15,
+	"editor.semanticHighlighting.enabled": true,
+	"terminal.integrated.minimumContrastRatio": 1,
+
+	// ═══════════════════════════════════════════════════════════════════════════
+	// EDITOR CORE
+	// ═══════════════════════════════════════════════════════════════════════════
+	"editor.bracketPairColorization.enabled": true,
+	"editor.guides.bracketPairs": "active",
+	"editor.minimap.enabled": true,
+	"editor.wordWrap": "off",
+	"editor.tabSize": 4,
+	"editor.insertSpaces": true,
+	"editor.trimAutoWhitespace": true,
+
+	// ═══════════════════════════════════════════════════════════════════════════
+	// FILE HANDLING
+	// ═══════════════════════════════════════════════════════════════════════════
+	"files.trimTrailingWhitespace": true,
+	"files.insertFinalNewline": true,
+	"security.workspace.trust.untrustedFiles": "open",
+	"explorer.confirmDelete": false,
+	"explorer.confirmDragAndDrop": false,
+
+	// ═══════════════════════════════════════════════════════════════════════════
+	// PYTHON (Ruff + isort)
+	// ═══════════════════════════════════════════════════════════════════════════
+	"python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+	// "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+	"python.analysis.typeCheckingMode": "off",
+	"python.analysis.diagnosticSeverityOverrides": {},
+	"python.analysis.diagnosticMode": "off",
+	"python.analysis.autoSearchPaths": true,
+	"python.analysis.useLibraryCodeForTypes": true,
+	"[python]": {
+		"editor.defaultFormatter": "charliermarsh.ruff",
+		"editor.formatOnSave": true,
+		"editor.codeActionsOnSave": {
+			"source.organizeImports": "explicit"
+		}
+	},
+	"ruff.lineLength": 100,
+
+	// ═══════════════════════════════════════════════════════════════════════════
+	// JAVASCRIPT / TYPESCRIPT / REACT (Biome)
+	// ═══════════════════════════════════════════════════════════════════════════
+	"typescript.suggest.paths": false,
+	"javascript.suggest.paths": false,
+	"[javascript]": {
+		"editor.defaultFormatter": "biomejs.biome",
+		"editor.formatOnSave": true
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome",
+		"editor.formatOnSave": true
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "biomejs.biome",
+		"editor.formatOnSave": true
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome",
+		"editor.formatOnSave": true
+	},
+
+	// ═══════════════════════════════════════════════════════════════════════════
+	// TAILWIND CSS (Headwind class sorting)
+	// ═══════════════════════════════════════════════════════════════════════════
+	"headwind.runOnSave": true,
+
+	// ═══════════════════════════════════════════════════════════════════════════
+	// JSON / TOML / CSS
+	// ═══════════════════════════════════════════════════════════════════════════
+	"[json]": {
+		"editor.defaultFormatter": "biomejs.biome",
+		"editor.formatOnSave": true
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "biomejs.biome",
+		"editor.formatOnSave": true
+	},
+	"[toml]": {
+		"editor.defaultFormatter": "tamasfe.even-better-toml",
+		"editor.formatOnSave": true
+	},
+
+	// ═══════════════════════════════════════════════════════════════════════════
+	// GIT
+	// ═══════════════════════════════════════════════════════════════════════════
+	"git.confirmSync": false,
+	"git.autofetch": true,
+
+	// ═══════════════════════════════════════════════════════════════════════════
+	// GITLENS
+	// ═══════════════════════════════════════════════════════════════════════════
+	"gitlens.ai.model": "gitkraken",
+	"gitlens.ai.gitkraken.model": "gemini:gemini-2.0-flash",
+
+	// ═══════════════════════════════════════════════════════════════════════════
+	// ERROR LENS
+	// ═══════════════════════════════════════════════════════════════════════════
+	"errorLens.enabledDiagnosticLevels": ["error", "warning"],
+	"errorLens.excludeBySource": ["cSpell"],
+
+	// ═══════════════════════════════════════════════════════════════════════════
+	// CLAUDE CODE
+	// ═══════════════════════════════════════════════════════════════════════════
+	"claudeCode.preferredLocation": "panel",
+
+	// ═══════════════════════════════════════════════════════════════════════════
+	// LATEX WORKSHOP
+	// ═══════════════════════════════════════════════════════════════════════════
+	"latex-workshop.latex.tools": [
+		{
+			"name": "latexmk",
+			"command": "latexmk",
+			"args": [
+				"-synctex=1",
+				"-interaction=nonstopmode",
+				"-file-line-error",
+				"-pdf",
+				"-outdir=%OUTDIR%",
+				"%DOC%"
+			],
+			"env": {}
+		},
+		{
+			"name": "xelatex",
+			"command": "xelatex",
+			"args": [
+				"-synctex=1",
+				"-interaction=nonstopmode",
+				"-file-line-error",
+				"%DOC%"
+			],
+			"env": {}
+		},
+		{
+			"name": "pdflatex",
+			"command": "pdflatex",
+			"args": [
+				"-synctex=1",
+				"-interaction=nonstopmode",
+				"-file-line-error",
+				"%DOC%"
+			],
+			"env": {}
+		},
+		{
+			"name": "bibtex",
+			"command": "bibtex",
+			"args": ["%DOCFILE%"],
+			"env": {}
+		}
+	],
+	"latex-workshop.latex.recipes": [
+		{
+			"name": "pdfLaTeX",
+			"tools": ["pdflatex"]
+		},
+		{
+			"name": "latexmk 🔃",
+			"tools": ["latexmk"]
+		},
+		{
+			"name": "xelatex",
+			"tools": ["xelatex"]
+		},
+		{
+			"name": "pdflatex ➞ bibtex ➞ pdflatex`×2",
+			"tools": ["pdflatex", "bibtex", "pdflatex", "pdflatex"]
+		},
+		{
+			"name": "xelatex ➞ bibtex ➞ xelatex`×2",
+			"tools": ["xelatex", "bibtex", "xelatex", "xelatex"]
+		}
+	],
+	"latex-workshop.view.pdf.ref.viewer": "external",
+	"latex-workshop.view.pdf.viewer": "external",
+	"latex-workshop.view.pdf.external.viewer.command": "zathura",
+	"latex-workshop.view.pdf.external.viewer.args": [
+		"--synctex-editor-command",
+		"code --no-sandbox -r -g %{input}:%{line}",
+		"%PDF%"
+	],
+	"latex-workshop.synctex.afterBuild.enabled": true,
+
+	// ═══════════════════════════════════════════════════════════════════════════
+	// MARKDOWN PREVIEW ENHANCED
+	// ═══════════════════════════════════════════════════════════════════════════
+	"markdown-preview-enhanced.previewTheme": "github-dark.css",
+	"slidev.preview-sync": true,
+	"remote.autoForwardPortsSource": "hybrid",
+	"json.schemaDownload.trustedDomains": {
+		"https://schemastore.azurewebsites.net/": true,
+		"https://raw.githubusercontent.com/": true,
+		"https://www.schemastore.org/": true,
+		"https://json.schemastore.org/": true,
+		"https://json-schema.org/": true,
+		"https://biomejs.dev": true
+	},
+	"ty.inlayHints.callArgumentNames": false,
+	"ty.inlayHints.variableTypes": false,
+	"cSpell.userWords": ["deembedding", "scikit"],
+	"mermaidExportPro.exportStrategy": "web",
+	"chat.disableAIFeatures": true
 }
