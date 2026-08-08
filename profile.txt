@@ -1,3 +1,7 @@
+# Decode native-command output (winget, etc.) as UTF-8 so non-ASCII text
+# (e.g. German "verfügbares") renders correctly instead of OEM-codepage mojibake.
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
 Import-Module posh-git
 # oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\quick-term.omp.json" | Invoke-Expression
 Import-Module -Name Terminal-Icons
@@ -64,18 +68,41 @@ function Invoke-PyCheck {
 }
 Set-Alias -Name pycheck -Value Invoke-PyCheck
 
+# Run one upgrade step, classify the exit code, return a status record.
+# Output is captured (not streamed) so winget skips its console spinner; it is
+# echoed only when the step genuinely fails, keeping Success / Nothing-to-upgrade quiet.
+function Invoke-UpgradeStep {
+    param([string]$Label, [scriptblock]$Action)
+    Write-Host "→ $Label" -ForegroundColor Cyan
+    $out  = & $Action 2>&1
+    $code = $LASTEXITCODE
+    # winget's APPINSTALLER_CLI_ERROR_UPDATE_NOT_APPLICABLE = 0x8A15002B
+    if     ($code -eq 0)            { $status = 'Success'             }
+    elseif ($code -eq -1978335189)  { $status = 'Nothing to upgrade'  }
+    else                            { $status = "Failed (exit $code)" }
+    if ($status -like 'Failed*') { $out | Out-Host }
+    [pscustomobject]@{ Label = $Label; Status = $status }
+}
+
 # Like Linux `codeup` but without VS Code extension updates or Claude.
 # (yamir/yain are Arch-specific; add winget/scoop steps here if you use them.)
 function Invoke-CodeUp {
-	claude update
-	if ($LASTEXITCODE -ne 0) { return }
-    uv self update
-    if ($LASTEXITCODE -ne 0) { return }
-    bun upgrade
-    if ($LASTEXITCODE -ne 0) { return }
-    npm install -g corepack
-    if ($LASTEXITCODE -ne 0) { return }
-    winget upgrade lazygit
+    $results = @(
+        Invoke-UpgradeStep 'Claude Code (winget)' { winget upgrade Anthropic.ClaudeCode }
+        Invoke-UpgradeStep 'uv self update'       { uv self update }
+        Invoke-UpgradeStep 'bun upgrade'          { bun upgrade }
+        Invoke-UpgradeStep 'corepack (npm -g)'    { npm install -g corepack }
+        Invoke-UpgradeStep 'lazygit (winget)'     { winget upgrade lazygit }
+    )
+
+    Write-Host ''
+    Write-Host '── codeup summary ──' -ForegroundColor DarkGray
+    foreach ($r in $results) {
+        if     ($r.Status -eq 'Success')            { $color = 'Green';  $sym = '✓' }
+        elseif ($r.Status -eq 'Nothing to upgrade') { $color = 'Yellow'; $sym = '⚠' }
+        else                                        { $color = 'Red';    $sym = '✗' }
+        Write-Host ('  {0} {1,-22} {2}' -f $sym, $r.Label, $r.Status) -ForegroundColor $color
+    }
 }
 Set-Alias -Name codeup -Value Invoke-CodeUp
 
@@ -112,110 +139,11 @@ Set-Alias kp Kill-Port
 
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
 
-# --- BONSAI Sync ---
+# --- BONSAI ---
 $BONSAI_REPO = "C:\Git\BONSAI"
 
-function Invoke-BonsaiPush {
-    $global = "$env:USERPROFILE\.claude"
-    foreach ($item in @('output-styles', 'rules', 'skills')) {
-        Copy-Item -Path "$BONSAI_REPO\.claude\$item" -Destination $global -Recurse -Force
-    }
-    Copy-Item -Path "$BONSAI_REPO\CLAUDE.md" -Destination "$env:USERPROFILE\CLAUDE.md" -Force
-    Write-Host "BONSAI pushed to global"
-}
-Set-Alias -Name bonsai-push -Value Invoke-BonsaiPush
-
-function Invoke-BonsaiPull {
-    $global = "$env:USERPROFILE\.claude"
-    foreach ($item in @('output-styles', 'rules', 'skills')) {
-        Copy-Item -Path "$global\$item" -Destination "$BONSAI_REPO\.claude" -Recurse -Force
-    }
-    Copy-Item -Path "$env:USERPROFILE\CLAUDE.md" -Destination "$BONSAI_REPO\CLAUDE.md" -Force
-    Write-Host "BONSAI pulled from global"
-}
-Set-Alias -Name bonsai-pull -Value Invoke-BonsaiPull
-
-function Invoke-BonsaiDiff {
-    $pairs = @(
-        @{ Name = 'output-styles'; G = "$env:USERPROFILE\.claude\output-styles"; R = "$BONSAI_REPO\.claude\output-styles" }
-        @{ Name = 'rules';         G = "$env:USERPROFILE\.claude\rules";         R = "$BONSAI_REPO\.claude\rules" }
-        @{ Name = 'skills';        G = "$env:USERPROFILE\.claude\skills";        R = "$BONSAI_REPO\.claude\skills" }
-        @{ Name = 'CLAUDE.md';     G = "$env:USERPROFILE\CLAUDE.md";             R = "$BONSAI_REPO\CLAUDE.md" }
-    )
-
-    Write-Host "BONSAI sync status " -NoNewline
-    Write-Host "(global <-> BONSAI repo)" -ForegroundColor DarkGray
-    Write-Host ""
-
-    $details = @()
-    foreach ($p in $pairs) {
-        $name = $p.Name; $g = $p.G; $r = $p.R
-        if (-not (Test-Path $g) -or -not (Test-Path $r)) {
-            $side = if (-not (Test-Path $g)) { 'global' } else { 'repo' }
-            Write-Host ("  {0,-14} " -f $name) -NoNewline
-            Write-Host "! missing " -ForegroundColor Yellow -NoNewline
-            Write-Host "($side side not found)" -ForegroundColor DarkGray
-            continue
-        }
-
-        $diffs = @()
-        if (Test-Path $g -PathType Container) {
-            $gMap = @{}; $rMap = @{}
-            Get-ChildItem -Path $g -Recurse -File | ForEach-Object {
-                $gMap[$_.FullName.Substring($g.Length).TrimStart('\')] = (Get-FileHash $_.FullName -Algorithm SHA256).Hash
-            }
-            Get-ChildItem -Path $r -Recurse -File | ForEach-Object {
-                $rMap[$_.FullName.Substring($r.Length).TrimStart('\')] = (Get-FileHash $_.FullName -Algorithm SHA256).Hash
-            }
-            foreach ($k in $gMap.Keys) {
-                if (-not $rMap.ContainsKey($k))   { $diffs += "Only in global: $k" }
-                elseif ($gMap[$k] -ne $rMap[$k])  { $diffs += "Differ:         $k" }
-            }
-            foreach ($k in $rMap.Keys) {
-                if (-not $gMap.ContainsKey($k))   { $diffs += "Only in repo:   $k" }
-            }
-            $gMtime = (Get-ChildItem -Path $g -Recurse -File | Sort-Object LastWriteTime | Select-Object -Last 1).LastWriteTime
-            $rMtime = (Get-ChildItem -Path $r -Recurse -File | Sort-Object LastWriteTime | Select-Object -Last 1).LastWriteTime
-        } else {
-            if ((Get-FileHash $g -Algorithm SHA256).Hash -ne (Get-FileHash $r -Algorithm SHA256).Hash) {
-                $diffs += "Content differs"
-            }
-            $gMtime = (Get-Item $g).LastWriteTime
-            $rMtime = (Get-Item $r).LastWriteTime
-        }
-
-        Write-Host ("  {0,-14} " -f $name) -NoNewline
-        if ($diffs.Count -eq 0) {
-            Write-Host "OK in sync" -ForegroundColor Green
-            continue
-        }
-        if ($gMtime -gt $rMtime) {
-            Write-Host "-> global newer " -ForegroundColor Cyan -NoNewline
-            Write-Host "(run: bonsai-pull) " -ForegroundColor DarkGray -NoNewline
-        } elseif ($rMtime -gt $gMtime) {
-            Write-Host "<- repo newer   " -ForegroundColor Cyan -NoNewline
-            Write-Host "(run: bonsai-push) " -ForegroundColor DarkGray -NoNewline
-        } else {
-            Write-Host "! same mtime, content differs " -ForegroundColor Yellow -NoNewline
-        }
-        Write-Host ("-- {0} file(s) differ" -f $diffs.Count) -ForegroundColor DarkGray
-        $details += [PSCustomObject]@{ Name = $name; Diffs = $diffs }
-    }
-
-    if ($details.Count -gt 0) {
-        Write-Host ""
-        Write-Host "Details"
-        foreach ($d in $details) {
-            Write-Host ""
-            Write-Host $d.Name
-            $d.Diffs | ForEach-Object { Write-Host "  $_" }
-        }
-    }
-}
-Set-Alias -Name bonsai-diff -Value Invoke-BonsaiDiff
-
 function Invoke-BonsaiUpdate {
-    git -C "$BONSAI_REPO" pull --no-edit
+    & "$BONSAI_REPO\scripts\install.ps1" update
 }
 Set-Alias -Name bonsai-update -Value Invoke-BonsaiUpdate
 
