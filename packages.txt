@@ -7,7 +7,6 @@ winget install GitHub.cli
 winget install -e --id OpenJS.NodeJS
 winget install sharkdp.bat
 winget install -e --id Rustlang.Rustup
-winget install Posit.Quarto
 winget install GnuWin32.Make (add path to env PATH variable)
 winget install sxyazi.yazi
 winget install Gyan.FFmpeg 7zip.7zip jqlang.jq oschwartz10612.Poppler sharkdp.fd BurntSushi.ripgrep.MSVC junegunn.fzf ajeetdsouza.zoxide ImageMagick.ImageMagick
@@ -22,6 +21,7 @@ Install-Module -Name Terminal-Icons -Repository PSGallery
 Install-Module PSReadLine -RequiredVersion 2.1.0
 Install-Module -Name PSFzf -RequiredVersion 2.6.7
 PowerShellGet\Install-Module posh-git -Scope CurrentUser -Force
+powershell -ExecutionPolicy ByPass -c "irm https://claude.ai/install.ps1 | iex"
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 powershell -ExecutionPolicy ByPass -c "irm bun.sh/install.ps1 | iex"
 npm install -g tldr
