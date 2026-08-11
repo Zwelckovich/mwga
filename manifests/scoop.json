@@ -1,0 +1,18 @@
+{
+    "apps": [
+        {
+            "Source": "main",
+            "Name": "resvg"
+        },
+        {
+            "Source": "main",
+            "Name": "zellij"
+        }
+    ],
+    "buckets": [
+        {
+            "Name": "main",
+            "Source": "https://github.com/ScoopInstaller/Main.git"
+        }
+    ]
+}

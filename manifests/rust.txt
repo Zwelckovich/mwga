@@ -1,0 +1,5 @@
+# rustup-Komponenten — installiert mit `rustup component add <name>`.
+# Eine Zeile pro Komponente. Leerzeilen und #-Kommentare werden ignoriert.
+
+rust-src
+rust-analyzer

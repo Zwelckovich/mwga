@@ -1,0 +1,13 @@
+# PowerShell-Module — installiert mit -Scope CurrentUser in PowerShell 7.
+# Eine Zeile pro Modul. Leerzeilen und #-Kommentare werden ignoriert.
+#
+# Beide werden im Profil LAZY geladen, nicht beim Start:
+#   posh-git  nur fuer git-Tab-Completion (den Prompt liefert oh-my-posh)
+#   PSFzf     erst beim ersten Ctrl+R / Ctrl+T
+#
+# Bewusst NICHT enthalten:
+#   Terminal-Icons  — redundant, eza --icons kann dasselbe ohne Ladezeit
+#   PSReadLine      — PowerShell 7 bringt eine aktuellere Version mit als jeder Pin
+
+posh-git
+PSFzf

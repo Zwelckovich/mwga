@@ -1,0 +1,9 @@
+# BONSAI-Session-Tracker — nie committen.
+CLEANUP.md
+
+# Von bootstrap.ps1 erzeugt: gh- und rustup-Completion.
+# Wird beim naechsten Lauf neu generiert und ist maschinenspezifisch.
+profile/completions/
+
+# Backups, die Copy-Config beim Ueberschreiben anlegt.
+*.bak-*

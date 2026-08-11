@@ -1,0 +1,56 @@
+{
+	"$schema" : "https://aka.ms/winget-packages.schema.2.0.json",
+	"CreationDate" : "2026-08-10T00:00:00.000-00:00",
+	"Sources" :
+	[
+		{
+			"Packages" :
+			[
+				{ "PackageIdentifier" : "Microsoft.PowerShell" },
+				{ "PackageIdentifier" : "Microsoft.WindowsTerminal" },
+				{ "PackageIdentifier" : "JanDeDobbeleer.OhMyPosh" },
+				{ "PackageIdentifier" : "DEVCOM.JetBrainsMonoNerdFont" },
+
+				{ "PackageIdentifier" : "Git.Git" },
+				{ "PackageIdentifier" : "GitHub.cli" },
+				{ "PackageIdentifier" : "JesseDuffield.lazygit" },
+				{ "PackageIdentifier" : "dandavison.delta" },
+
+				{ "PackageIdentifier" : "sharkdp.bat" },
+				{ "PackageIdentifier" : "sharkdp.fd" },
+				{ "PackageIdentifier" : "BurntSushi.ripgrep.MSVC" },
+				{ "PackageIdentifier" : "junegunn.fzf" },
+				{ "PackageIdentifier" : "ajeetdsouza.zoxide" },
+				{ "PackageIdentifier" : "jqlang.jq" },
+				{ "PackageIdentifier" : "eza-community.eza" },
+				{ "PackageIdentifier" : "sxyazi.yazi" },
+				{ "PackageIdentifier" : "oschwartz10612.Poppler" },
+				{ "PackageIdentifier" : "ImageMagick.ImageMagick" },
+				{ "PackageIdentifier" : "Terrastruct.D2" },
+				{ "PackageIdentifier" : "aristocratos.btop4win" },
+				{ "PackageIdentifier" : "ezwinports.make" },
+				{ "PackageIdentifier" : "dbrgn.tealdeer" },
+				{ "PackageIdentifier" : "gerardog.gsudo" },
+				{ "PackageIdentifier" : "yt-dlp.yt-dlp" },
+
+				{ "PackageIdentifier" : "Rustlang.Rustup" },
+				{ "PackageIdentifier" : "OpenJS.NodeJS.LTS" },
+				{ "PackageIdentifier" : "Python.Python.3.13" },
+				{ "PackageIdentifier" : "Python.Launcher" },
+
+				{ "PackageIdentifier" : "Microsoft.VisualStudioCode" },
+				{ "PackageIdentifier" : "Microsoft.PowerToys" },
+				{ "PackageIdentifier" : "Google.Chrome" },
+				{ "PackageIdentifier" : "Notepad++.Notepad++" }
+			],
+			"SourceDetails" :
+			{
+				"Argument" : "https://cdn.winget.microsoft.com/cache",
+				"Identifier" : "Microsoft.Winget.Source_8wekyb3d8bbwe",
+				"Name" : "winget",
+				"Type" : "Microsoft.PreIndexed.Package"
+			}
+		}
+	],
+	"WinGetVersion" : "1.29.280"
+}
